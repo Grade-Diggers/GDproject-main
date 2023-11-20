@@ -1,62 +1,40 @@
-import axios from "axios";
-import React,{ Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";
 
+import "./TeamPage.css";
 
-const Todo = props =>(
-    <tr>
-    <td>{props.todo.description}</td>
-    <td>{props.todo.responsible}</td>
-    <td>{props.todo.priority}</td>
-    <td>
-        <Link to={"/edit/"+props.todo._id} className="btn btn-success">Edit</Link>
-    </td>
-    </tr>
-    )
+const TeamMember = ({ name, image }) => (
+  <div className="team-member">
+    <img src={image} alt={name} />
+    <p>{name}</p>
+  </div>
+);
 
-export default class TodoLists extends Component{
+export default class TeamPage extends Component {
+  render() {
+    const teamMembers = [
+      { name: "Abdu, Aimen", image: "/aimen.png" },
+      { name: "Wing Sau chun", image: "/wing.png" },
+      { name: "Pallavi Mishra", image: "/pallavi.png" },
+      { name: "Samiya Sadiqa Fatima", image: "/fathima.png" },
+      { name: "Dilakshan Sivaruban", image: "/Dilakshan.png" },
+    ];
 
-    constructor(props){
-        super(props);
-        this.state = {todos: []};
-    }
-
-
-    componentDidMount(){
-        axios.get('http://localhost:8081/')
-        .then(res=>this.setState({todos:res.data}))
-        .catch(err=>console.log(err));
-    }
-
-    componentDidUpdate(){
-        axios.get('http://localhost:8081/')
-        .then(res=>this.setState({todos:res.data}))
-        .catch(err=>console.log(err));
-    }
-
-    todoLists(){
-        return this.state.todos.map(function(currentTodo, i){
-            return <Todo todo={currentTodo} key={i}/>
-        })
-    }
-
-
-    render(){
-
-        return(
-            <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Description</th>
-      <th scope="col">Responsible</th>
-      <th scope="col">Priority</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-            {this.todoLists()}
-  </tbody>
-</table>
-        )
-    }
+    return (
+      <div>
+        <h2>Meet Our Team</h2>
+        <div className="team-container">
+          <div className="team-row">
+            {teamMembers.slice(0, 3).map((member) => (
+              <TeamMember key={member.name} name={member.name} image={member.image} />
+            ))}
+          </div>
+          <div className="team-row">
+            {teamMembers.slice(3).map((member) => (
+              <TeamMember key={member.name} name={member.name} image={member.image} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
