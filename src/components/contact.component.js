@@ -1,62 +1,19 @@
-import axios from "axios";
-import React,{ Component } from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
 
+const ContactComponent = () => {
+  return (
+    <div>
+      <h2>Contact Us</h2>
+      <p>
+        Feel free to reach out to us with any questions or feedback. We'd love to hear from you!
+      </p>
+      <div>
+        <h4>Contact Information:</h4>
+        <p>Email: example@email.com</p>
+        <p>Phone: +1 (123) 456-7890</p>
+      </div>
+    </div>
+  );
+};
 
-const Todo = props =>(
-    <tr>
-    <td>{props.todo.description}</td>
-    <td>{props.todo.responsible}</td>
-    <td>{props.todo.priority}</td>
-    <td>
-        <Link to={"/edit/"+props.todo._id} className="btn btn-success">Edit</Link>
-    </td>
-    </tr>
-    )
-
-export default class TodoLists extends Component{
-
-    constructor(props){
-        super(props);
-        this.state = {todos: []};
-    }
-
-
-    componentDidMount(){
-        axios.get('http://localhost:8081/')
-        .then(res=>this.setState({todos:res.data}))
-        .catch(err=>console.log(err));
-    }
-
-    componentDidUpdate(){
-        axios.get('http://localhost:8081/')
-        .then(res=>this.setState({todos:res.data}))
-        .catch(err=>console.log(err));
-    }
-
-    todoLists(){
-        return this.state.todos.map(function(currentTodo, i){
-            return <Todo todo={currentTodo} key={i}/>
-        })
-    }
-
-
-    render(){
-
-        return(
-            <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Description</th>
-      <th scope="col">Responsible</th>
-      <th scope="col">Priority</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-            {this.todoLists()}
-  </tbody>
-</table>
-        )
-    }
-}
+export default ContactComponent;
